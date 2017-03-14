@@ -6,8 +6,8 @@
 %{!?scl:%global enable_tests 0}
 
 Name:		%{?scl_prefix}nodejs-tough-cookie
-Version:    2.2.2
-Release:    1%{?dist}
+Version:        2.3.2
+Release:        2%{?dist}
 Summary:	RFC6265 Cookies and Cookie Jar for node.js
 Url:		https://github.com/SalesforceEng/tough-cookie
 Source0:	https://registry.npmjs.org/%{npm_name}/-/%{npm_name}-%{version}.tgz
@@ -28,6 +28,9 @@ RFC6265 Cookies and Cookie Jar for node.js
 
 %prep
 %setup -q -n package
+
+#punycode is still provided by engine in v2.0.0, so fixdep
+%nodejs_fixdep punycode
 
 %build
 #nothing to do
@@ -52,6 +55,12 @@ vows test/*_test.js
 %license LICENSE
 
 %changelog
+* Thu Jan 05 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.3.2-2
+- Fixdep punycode
+
+* Thu Jan 05 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.3.2-1
+- Updated with script
+
 * Tue Sep 13 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.2.2-1
 - Updated with script
 - tar has some issues but should be okay
